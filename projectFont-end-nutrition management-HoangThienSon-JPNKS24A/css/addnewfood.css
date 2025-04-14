@@ -1,0 +1,201 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #999;
+            cursor: pointer;
+        }
+        
+        .modal-header {
+            text-align: center;
+            padding: 25px 20px 15px;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .modal-subtitle {
+            font-size: 16px;
+            color: #777;
+        }
+        
+        .form-container {
+            padding: 0 20px 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            display: flex;
+        }
+        
+        .form-group.quantity {
+            flex: 0.5;
+        }
+        
+        .form-group.unit {
+            flex: 0.5;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .form-control::placeholder {
+            color: #999;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #1abc9c;
+        }
+        
+        .form-control.unit-select {
+            border-left: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: #f0f0f0;
+            color: #666;
+        }
+        
+        .quantity-input {
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin: 25px 0 15px;
+            color: #555;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .nutritional-value {
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            color: #1abc9c;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .nutrient-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .nutrient-item {
+            display: flex;
+        }
+        
+        .nutrient-input {
+            flex: 1;
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .nutrient-unit {
+            width: 50px;
+            text-align: center;
+            border-left: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: #f0f0f0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+        
+        .btn-save {
+            background-color: #1abc9c;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .nutrient-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nutrient-grid {
+                grid-template-columns: 1fr;
+            }
+        }

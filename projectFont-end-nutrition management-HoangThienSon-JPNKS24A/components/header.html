@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+  <style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    width: 220px;
+    height: 650px;
+    background-color: #2C3E50;
+    padding-top: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.menu li:hover {
+    background-color: #1A252F;
+}
+
+.menu li img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.sign-out {
+    background-color: #16A085;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+.sign-out {
+    width: 190px;
+    height:20px;
+}
+.sign-out:hover {
+    background-color: #13876D;
+}
+
+/* Khi màn hình nhỏ hơn 575px thì navbar sẽ chuyển thành ngang */
+/* @media (max-width: 575px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        padding: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu {
+        display: flex;
+        gap: 10px;
+    }
+
+    .menu li {
+        padding: 10px;
+    }
+
+    .sign-out {
+        padding: 10px;
+    }
+} */
+
+  </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="logo"><img src="../assets/icon/images-removebg-preview 1 (2).png" alt="Logo"></div>
+            <ul class="menu">
+                <li class="home"><img src="../assets/icon/home.png" alt="Home"> Homepage</li>
+                <li class="active"><img src="../assets/icon/Icon.png" alt="Foods"> Foods</li>
+                <li class="recipes" ><img src="../assets/icon/Icon (1).png" alt="Recipes" > Recipes</li>
+            </ul>
+        </div>
+        <div class="sign-out">Sign out</div>
+    </div>
+    <!-- <script src="../fages/Login.html"></script> -->
+    <!--  -->
+    <script>
+        // document.getElementsByClassName("sign-out")[0].addEventListener("click",function(){
+        //     window.parent.logOut();
+        // });
+        // document.getElementsByClassName("active")[0].addEventListener("click",function(){
+        //     window.parent.food();
+        // });
+        // document.getElementsByClassName("home")[0].addEventListener("click",function(){
+        //     window.parent.home();
+        // });
+        // document.getElementsByClassName("recipes")[0].addEventListener("click",function(){
+        //     window.parent.recipe();
+        // });
+
+        document.getElementsByClassName("sign-out")[0].addEventListener("click", function(){
+            window.parent.logOut();
+        });
+
+        document.getElementsByClassName("active")[0].addEventListener("click", function(){
+            window.parent.food();
+        });
+
+        document.getElementsByClassName("home")[0].addEventListener("click", function(){
+            window.parent.home();
+        });
+
+        document.getElementsByClassName("recipes")[0].addEventListener("click", function(){
+            window.parent.recipe();
+        });
+    </script>
+</body>
+</html>

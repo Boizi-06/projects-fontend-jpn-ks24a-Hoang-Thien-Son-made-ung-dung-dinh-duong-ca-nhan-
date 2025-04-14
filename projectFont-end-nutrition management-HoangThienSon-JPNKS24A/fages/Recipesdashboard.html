@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./css/style-home.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <link rel="stylesheet" href="../css/Recipesdashboard.css">
+</head>
+<body>
+    <div class="home2">
+        <iframe src="../components/header.html" frameborder="0"></iframe>
+        <div class="home">
+            <div class="header">
+                <div class="header-top">
+                    <img src="../assets/icon/Button (4).png" alt="">
+                </div>
+                <div class="header-bot">
+                    <div class="text">
+                        <span class="to">Repices</span>
+                        <span>Create check and update repices</span>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <div class="div">
+                    <div class="div2">
+                        <span class="beo">Recipes</span>
+                        <span>Search check and create new ripecis</span>
+                    </div>
+                    <div class="addrecipe">+</div>
+                </div>
+                <div class="searchengine-home">
+                    <div class="input">
+                        <input type="text" id="searchInput" placeholder="search food">
+
+                        <i class="fa-solid fa-magnifying-glass"  onclick="searchFood()"></i>
+                    </div>
+                    <div class="sortnutrient-home">
+                        <i class="fa-solid fa-arrow-up-wide-short" id="sort"onclick="sortBynutrient()" ></i>
+                       <input type="text"placeholder="sort by nutrients" class="inputnutrient">
+                        <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                    </div>
+                    <div class="searchcategory-home">
+                        <input type="text" placeholder="Category"  id="searchCategory">
+                        <i class="fa-solid fa-magnifying-glass" onclick="searchByCategory()" ></i>
+                    </div>
+                </div>
+                <div class="confirmmyrecipes">
+                    <div class="favorites" onclick="mylikefood()">
+                        <img src="../assets/icon/Icon (5).png" alt="">
+                        <span class="like">Favorites: 0</span>
+                    </div>
+                    <div class="myrecipes"  onclick="myfood()">
+                        <input type="checkbox" class="myfood">
+                        <img src="../assets/icon/border_color.png" alt="">
+                        <span>My Food</span>
+                    </div>
+                </div>
+                <div class="listfood-home">
+                    <!--  -->
+                </div>
+                <div class="paginationd-home">
+                   <span><img src="../assets/icon/Symbol.png" alt=""></span>
+                   <span>1</span>
+                   <span>2</span>
+                   <span>3</span>
+                   <span>4</span>
+                   <span>...</span>
+                   <span>111</span>
+                   <span><img src="../assets/icon/Symbol (1).png" alt=""></span>
+                </div>
+            </div>
+            <!-- sajdslkd -->
+            
+        </div>
+    </div>
+    <script src="../js/Recipesdashboard.js"></script>
+</body>
+</html>

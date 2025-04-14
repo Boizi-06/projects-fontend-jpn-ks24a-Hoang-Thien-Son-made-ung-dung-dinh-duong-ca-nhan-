@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #999;
+            cursor: pointer;
+        }
+        
+        .modal-header {
+            text-align: center;
+            padding: 25px 20px 15px;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .modal-subtitle {
+            font-size: 16px;
+            color: #777;
+        }
+        
+        .form-container {
+            padding: 0 20px 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            display: flex;
+        }
+        
+        .form-group.quantity {
+            flex: 0.5;
+        }
+        
+        .form-group.unit {
+            flex: 0.5;
+        }
+        
+        .form-label {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #666;
+            background-color: #f9f9f9;
+        }
+        
+        .form-value {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+        
+        .form-value.unit {
+            border-left: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: #f9f9f9;
+            color: #666;
+            width: auto;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .quantity-value {
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin: 25px 0 15px;
+            color: #555;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .nutritional-value {
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            color: #1abc9c;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .nutrient-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .nutrient-item {
+            display: flex;
+        }
+        
+        .nutrient-label {
+            flex: 1;
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .nutrient-value {
+            width: 80px;
+            text-align: right;
+            padding-right: 10px;
+            border-left: none;
+            border-right: none;
+            border-radius: 0;
+        }
+        
+        .nutrient-unit {
+            width: 40px;
+            text-align: center;
+            border-left: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: #f9f9f9;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+        
+        .btn-save {
+            background-color: #1abc9c;
+            color: white;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px 20px;
+        }
+        
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .nutrient-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nutrient-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <button class="close-btn"  >×</button>
+        
+        <div class="modal-header">
+            <h1 class="modal-title">Food information</h1>
+            <p class="modal-subtitle">Check and update the information about the food</p>
+        </div>
+        
+        <div class="form-container">
+            <!-- Basic Information -->
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Name</div>
+                    
+                </div>
+                <div class="form-group">
+                    
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Category</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Source</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Quantity</div>
+                </div>
+                <div class="form-group quantity">
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+                <div class="form-group unit">
+                    <div class="form-value unit"></div>
+                </div>
+            </div>
+            
+            <!-- Nutritional Value -->
+            <div class="nutritional-value">
+               
+            </div>
+            
+            <!-- Macronutrients -->
+            <h2 class="section-header">Macronutrients</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Energy</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+                <div class="form-group" style="flex: 0.2;">
+                    <div class="form-value unit">g</div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Fat</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+                <div class="form-group" style="flex: 0.2;">
+                    <div class="form-value unit">g</div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Carbohydrate</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+                <div class="form-group" style="flex: 0.2;">
+                    <div class="form-value unit">g</div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Protein</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="" id=""class="form-value">
+                </div>
+                <div class="form-group" style="flex: 0.2;">
+                    <div class="form-value unit">g</div>
+                </div>
+            </div>
+            
+            <!-- Micronutrients -->
+            <h2 class="section-header">Micronutrients</h2>
+            
+            <div class="nutrient-grid">
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Cholesterol</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Fiber</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Sodium</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Water</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Vitamin A</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Vitamin B-6</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Vitamin B-12</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Vitamin C</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Vitamin D (D2 + D3)</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Vitamin E</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Vitamin K</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Starch</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Lactose</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Alcohol</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Caffeine</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Sugars</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Calcium</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Iron</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Magnesium</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Phosphorus</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Potassium</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Zinc</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Copper</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Fluoride</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Manganese</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Selenium</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Thiamin</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Riboflavin</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Niacin</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Pantothenic acid</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Folate, total</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Folic acid</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Fatty acids, total trans</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Fatty acids, total saturated</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Fatty acids, total monounsaturated</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Fatty acids, total polyunsaturated</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <div class="form-label nutrient-label">Chloride</div>
+                    <input type="text" name="" id="" class="form-value nutrient-value" >
+                    <div class="nutrient-unit">mg</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button class="nav-btn"    >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <script src="../js/foodinformatinon.js"></script>
+</body>
+</html>

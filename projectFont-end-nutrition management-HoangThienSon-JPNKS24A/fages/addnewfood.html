@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Food</title>
+    <link rel="stylesheet" href="../css/addnewfood.css">
+</head>
+<body>
+    <div class="modal">
+        <button class="close-btn"  onclick="close ()">×</button>
+        
+        <div class="modal-header">
+            <h1 class="modal-title">Add new food</h1>
+            <p class="modal-subtitle">Fill in the fields below with the food information</p>
+        </div>
+        
+        <div class="form-container">
+            <!-- Basic Information -->
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" class="form-control name" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <!-- <input type="text" class="form-control " placeholder="Source" value="My foods"> -->
+                     <p class="form-control">My foods</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <!-- <input type="text" class="form-control" placeholder="Select the food group" > -->
+                    <select class="form-control unit unit-select">
+                        <option>vegeterian</option>
+                        <option>appetizer</option>
+                        <option>egan</option>
+                        <option>main_course</option>
+                        <option>main_course</option>
+                        <option>dessert</option>
+                        <option>low_carb</option>
+                        <option>gluten_free</option>
+                        <option>breakfast</option>
+                        <option>salad</option>
+                        <option>soup</option>
+
+                    </select>
+                </div>
+                <div class="form-group quantity">
+                    <input type="text" class="form-control quantity-input quantity" placeholder="100">
+                </div>
+                <div class="form-group unit">
+                    <select class="form-control unit-select">
+                        <option>grams</option>
+                        <option>kg</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Nutritional Value -->
+            <div class="nutritional-value">
+                
+            </div>
+            
+            <!-- Macronutrients -->
+            <h2 class="section-header">Macronutrients</h2>
+            
+            <div class="form-row macronutrients" >
+                <div class="form-group">
+                    <input type="text" class="form-control nutrient-input energy" placeholder="Energy">
+                    <div class="nutrient-unit">kcal</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control nutrient-input fat" placeholder="Fat">
+                    <div class="nutrient-unit">g</div>
+                </div>
+            </div>
+            
+            <div class="form-row macronutrients">
+                <div class="form-group">
+                    <input type="text" class="form-control nutrient-input carbohydrate" placeholder="Carbohydrate">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control nutrient-input Protein" placeholder="Protein">
+                    <div class="nutrient-unit">g</div>
+                </div>
+            </div>
+            
+            <!-- Micronutrients -->
+            <h2 class="section-header">Micronutrients</h2>
+            
+            <div class="nutrient-grid">
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Cholesterol">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Fiber">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Sodium">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Water">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Vitamin A">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Vitamin B-6">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Vitamin B-12">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Vitamin C">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Vitamin D (D2 + D3)">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Vitamin E">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Vitamin K">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Starch">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Lactose">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Alcohol">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Caffeine">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Sugars">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Calcium">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Iron">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Magnesium">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Phosphorus">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Potassium">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Zinc">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Copper">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Fluoride">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Manganese">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Selenium">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Thiamin">
+                    <div class="nutrient-unit">mg</div>
+                </div> 
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Riboflavin">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Niacin">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Pantothenic acid">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Folate, total">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Folic acid">
+                    <div class="nutrient-unit">μg</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Fatty acids, total trans">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Fatty acids, total saturated">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Fatty acids, total monounsaturated">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Fatty acids, total polyunsaturated">
+                    <div class="nutrient-unit">g</div>
+                </div>
+                <div class="nutrient-item">
+                    <input type="text" class="form-control nutrient-input" placeholder="Chloride">
+                    <div class="nutrient-unit">mg</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-cancel">Cancel</button>
+            <button class="btn btn-save" onclick="close ()">Save and close</button>
+        </div>
+    </div>
+    <script src="../js/addnewfood.js"></script>
+</body>
+</html>
+
+
+
+
+    
