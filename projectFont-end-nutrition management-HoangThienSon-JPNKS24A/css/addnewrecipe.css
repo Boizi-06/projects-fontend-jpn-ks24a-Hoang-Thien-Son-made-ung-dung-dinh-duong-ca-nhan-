@@ -20,10 +20,14 @@ body {
     /* margin: 0 auto; */
     
     /* border: 1px solid black; */
+    margin-left: 220px;
     
 }
 iframe {
     width: 225px;
+    height: 900px;
+    z-index: 999;
+    position: fixed;
 }
 
 .site-header {

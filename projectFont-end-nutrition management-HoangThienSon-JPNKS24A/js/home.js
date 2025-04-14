@@ -1,4 +1,3 @@
-
 let itemPage = 4;
 let dataFood = [];
 let curentpage = 1;
@@ -10,24 +9,24 @@ function loadFile() {
 
 function loadUser() {
     let listUserlogin = JSON.parse(localStorage.getItem('userlogin'));
-    
-    let userlogin = listUserlogin[listUserlogin.length-1];
-    console.log(userlogin);
+    let userlogin = listUserlogin[listUserlogin.length - 1];
     return userlogin ? userlogin : [];
 }
 
 function renderFood(page, data = null) {
     let food = loadFile();
     let userlogin = loadUser();
-    if(data == null) {
-        dataFood = food;
-    } else {
+
+    if (data !== null) {
         dataFood = data;
+    } else if (dataFood.length === 0) {
+        dataFood = food;
     }
-    const start = (page-1) * itemPage;
+
+    const start = (page - 1) * itemPage;
     const end = start + itemPage;
-    let pageData = dataFood.slice(start,end);
-   
+    let pageData = dataFood.slice(start, end);
+
     let str = "";
     for (let i = 0; i < pageData.length; i++) {
         str += `
@@ -37,15 +36,14 @@ function renderFood(page, data = null) {
                     <img src="../assets/icon/diversity_3.svg.png" alt="">
                     <span>Community Recipes</span>
                 </div>
-                <img src="../assets/img/image.png" alt="" >
+                <span> </span>
             </div>
             <div class="inforfood-home">
                 <span>${pageData[i].name}</span>
                 <div class="author">
                     <span>${pageData[i].source}</span>
                     <div class="like" data-id="${pageData[i].id}" onclick="addMylikeFood(${pageData[i].id})">
-                        <span  >
-                        <i class="like2" style="color: gray; font-size: 16px; cursor: pointer;" data-id="${pageData[i].id}">♡</i></span>
+                        <img class="like2" src="../assets/icon/favorite_border.png" style="width: 16px; cursor: pointer;" data-id="${pageData[i].id}" />
                         <span class="tim">${pageData[i].like}</span>
                     </div>
                 </div>
@@ -62,24 +60,12 @@ function renderFood(page, data = null) {
                     <div><span>Protein</span><span>${pageData[i].macronutrients.protein}</span></div>
                 </div>
             </div>
-        </div>
-        `;
+        </div>`;
     }
 
     document.getElementsByClassName("listfood-home")[0].innerHTML = str;
     displaypaginationdhome(dataFood);
 }
-
-// function logOut() {
-//     window.location.href = "../fages/Login.html";
-// }
-
-// function food() {
-//     window.location.href = "../fages/Ingredient dashboarh.html";
-// }
-// function recipe () {
-//     window.location.href = "../fages/Recipesdashboard.html";
-// }
 
 function logOut() {
     window.location.href = "../fages/Login.html";
@@ -98,146 +84,130 @@ function home() {
 }
 
 function searchFood() {
-    let value = document.getElementById("searchInput").value;
+    let value = document.getElementById("searchInput").value.trim().toLowerCase();
     let food = loadFile();
-    let findfood = [];
-    if(value == "") {
+
+    if (value === "") {
         renderFood(curentpage);
         return;
-    } else {
-        findfood = food.filter(i => i.name == value);
-        if(findfood.length == 0) {
-            alert("Food not found");
-            dataFood = food;
-            renderFood(curentpage);
-            document.getElementById("searchInput").value = "";
-            return;
-        } else {
-            document.getElementById("searchInput").value = "";
-            dataFood = findfood;
-            renderFood(1, dataFood);
-        }
     }
+
+    let findfood = food.filter(i => i.name.trim().toLowerCase() === value);
+    if (findfood.length === 0) {
+        showModal("Could not find the dish you love.");
+        dataFood = food;
+        renderFood(curentpage);
+    } else {
+        dataFood = findfood;
+        renderFood(1, dataFood);
+    }
+
+    document.getElementById("searchInput").value = "";
 }
 
 function searchByCategory() {
     let categoryInput = document.getElementById("searchCategory");
-    console.log(categoryInput);
     if (!categoryInput) {
-        alert("Category input does not exist.");
+        document.getElementsByClassName("listfood-home")[0].innerHTML = `44 not found`;
         return;
     }
+
     let value = categoryInput.value.trim().toLowerCase();
     let food = loadFile();
-    let findfood = [];
-    
-    if(value == "") {
+
+    if (value === "") {
         renderFood(curentpage);
         return;
-    } else {
-        findfood = food.filter(i => i.category.trim().toLowerCase() == value);
-        console.log(findfood);
-        if(findfood.length == 0) {
-            alert("Category not found");
-            dataFood = food;
-            renderFood(curentpage);
-            document.getElementById("searchCategory").value = "";
-            return;
-        } else {
-            dataFood = findfood;
-            document.getElementById("searchCategory").value = "";
-            renderFood(1, dataFood);
-        }
     }
+
+    let findfood = food.filter(i => i.category.trim().toLowerCase() === value);
+    if (findfood.length === 0) {
+        showModal("Cannot find the menu items.");
+        dataFood = food;
+        renderFood(curentpage);
+    } else {
+        dataFood = findfood;
+        renderFood(1, dataFood);
+    }
+
+    document.getElementById("searchCategory").value = "";
 }
 
 function sortBynutrient() {
     let food = loadFile();
     let value = document.getElementsByClassName("inputnutrient")[0].value.trim().toLowerCase();
-    if(value in food[0].macronutrients) {
+
+    if (value in food[0].macronutrients) {
         dataFood = food;
         dataFood.sort((a, b) => b.macronutrients[value] - a.macronutrients[value]);
         renderFood(curentpage, dataFood);
-        document.getElementsByClassName("inputnutrient")[0].value = "";
     } else {
-        dataFood = food;
-        alert("Nutrient not found");
-        document.getElementsByClassName("inputnutrient")[0].value = "";
+        showModal('Please enter the macronutrients to arrange them.');
         renderFood(curentpage);
-        return;
     }
+
+    document.getElementsByClassName("inputnutrient")[0].value = "";
 }
 
 function displaypaginationdhome(food) {
     let maxPage = Math.ceil(food.length / itemPage);
     let str = "";
-    for(let i = 0; i < maxPage; i++) {
-        str += `<span class="switchPage" onclick="nextPage(${i+1})">${i+1}</span>`;
+    for (let i = 0; i < maxPage; i++) {
+        str += `<span class="switchPage" onclick="nextPage(${i + 1})">${i + 1}</span>`;
     }
     document.getElementsByClassName("paginationd-home")[0].innerHTML = str;
 }
 
 function nextPage(id) {
-    curentpage = id+1;
+    curentpage = id;
     renderFood(curentpage, dataFood);
 }
 
 function addMylikeFood(id) {
     let food = loadFile();
     let user = loadUser();
-    
-    // Kiểm tra nếu user.mylikefood tồn tại, nếu không thì khởi tạo nó
+
     if (!user.mylikefood) {
         user.mylikefood = [];
     }
-    
-    let foodItem = food.find(f => f.id == id);
+
+    let foodItem = food.find(f => f.id === id);
     if (!foodItem) return;
 
-    let liked = user.mylikefood.some(f => f.id == id);
+    let liked = user.mylikefood.some(f => f.id === id);
     let element = document.querySelector(`.like2[data-id="${id}"]`);
-    
+
     if (!element) {
         console.error(`Element with data-id=${id} not found`);
         return;
     }
 
     if (!liked) {
-        // Cập nhật số lượt thích
         foodItem.like += 1;
         user.mylikefood.push(foodItem);
-       
 
-        // Thay đổi biểu tượng trái tim - đây là nơi có vấn đề
-        // Bạn đang cố thay đổi màu sắc, nhưng nó là một phần tử hình ảnh
-        // element.style.color = "red"; // Cách này không hoạt động với hình ảnh
-
-        // Đây là cách đúng để thay đổi hình ảnh
         element.src = "../assets/icon/favorite_filled.png";
-        
-        // Cập nhật số lượt thích trong giao diện người dùng
-        // 
-        document.getElementsByClassName("tim")[0].innerHTML=foodItem.like ;
-
-        // Lưu dữ liệu đã cập nhật
-        localStorage.setItem("food", JSON.stringify(food));
-
-        let userlogin = JSON.parse(localStorage.getItem("userlogin"));
-        if (!userlogin || userlogin.length == 0) {
-            alert('Không tìm thấy dữ liệu người dùng');
-            return;
-        } else {
-            let index = userlogin.length - 1;
-            userlogin[index] = user;
-            localStorage.setItem("userlogin", JSON.stringify(userlogin));
+        let timElement = element.closest('.like').querySelector('.tim');
+        if (timElement) {
+            timElement.innerText = foodItem.like;
         }
-        
-        // Không cần phải hiển thị lại toàn bộ trang
-        // renderFood(curentpage, dataFood);
+
+        localStorage.setItem("food", JSON.stringify(food));
+        let userlogin = JSON.parse(localStorage.getItem("userlogin"));
+        let index = userlogin.length - 1;
+        userlogin[index] = user;
+        localStorage.setItem("userlogin", JSON.stringify(userlogin));
     } else {
-        // Đã thích rồi
         element.src = "../assets/icon/favorite_filled.png";
     }
+}
+function showModal(message) {
+    document.getElementById("modalMessage").innerText = message;
+    document.getElementById("modalBox").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modalBox").style.display = "none";
 }
 
 renderFood(curentpage);

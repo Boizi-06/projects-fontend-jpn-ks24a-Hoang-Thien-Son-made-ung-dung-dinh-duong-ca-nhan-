@@ -3,6 +3,7 @@ let dataFood = [];
 let curentpage = 1;
 
 
+  
 
 function loadFile () {
     let food = JSON.parse(localStorage.getItem("food"));
@@ -22,9 +23,11 @@ function myfood() {
        let userlogin = loadUser();
        dataFood = userlogin.myfood;
         if(userlogin.myfood.length ==0) {
-            alert("ban chua them mon an nao");
+           
             document.getElementsByClassName("myfood")[0].checked = false;
-            return;
+            // nhưng chỉ được dùng trong hàm async
+            showModal("You haven't added any dishes yet.");
+            // return;
         }
        renderFood(curentpage,dataFood);
     } else {
@@ -35,15 +38,16 @@ function myfood() {
 
 }
 
- function mylikefood () {
+function mylikefood () {
     let food = loadFile();
     let userlogin = loadUser();
     let value = document.getElementsByClassName("like")[0];
     value.innerHTML = `favorites ${userlogin.mylikefood.length}`;
     dataFood = userlogin.mylikefood;
     if (dataFood.length == 0) {
-        alert("ban chua thich mon an nao");
-        return;
+        showModal("You haven't added any dishes to your favorites list yet.");
+        
+        // return;
     }
     renderFood(curentpage,dataFood);
 
@@ -76,7 +80,7 @@ function renderFood(page, data = null) {
                     <img src="../assets/icon/diversity_3.svg.png" alt="">
                     <span>Community Recipes</span>
                 </div>
-                <img src="../assets/img/image.png" alt="">
+                <span> </span>
             </div>
             <div class="inforfood-home">
                 <span>${pageData[i].name}</span>
@@ -149,7 +153,7 @@ function searchFood () {
     } else {
         findfood = food.filter(i=>i.name==value);
         if(findfood .length == 0) {
-            alert("objects food 444 not found");
+            showModal("The dish you are looking for is not on the list.");
             dataFood = food;
             renderFood(curentpage);
             document.getElementById("searchInput").value="";
@@ -172,7 +176,8 @@ function searchByCategory () {
     let categoryInput = document.getElementById("searchCategory");
     console.log(categoryInput);
     if (!categoryInput) {
-        alert("Category input does not exist.");
+        document.getElementsByClassName("listfood-home")[0].innerHTML = `444 not foud`;
+        
         return;
     }
     let value = categoryInput.value.trim().toLowerCase();
@@ -180,13 +185,16 @@ function searchByCategory () {
     let findfood = [];
     
     if(value=="") {
+        showModal("Please enter the existing food categories.");
+        
         renderFood(curentpage);
-        return;
+        // return;
     } else {
         findfood = food.filter(i=>i.category.trim().toLowerCase()==value);
         console.log(findfood);
         if(findfood .length == 0) {
-            alert("objects food 444 not found");
+            showModal("Please enter the existing food categories.");
+            
             dataFood = food;
             renderFood(curentpage);
             document.getElementById("searchCategory").value = "";
@@ -209,8 +217,11 @@ function sortBynutrient () {
         document.getElementsByClassName("inputnutrient")[0].value = "";
     } else {
         dataFood=[];
-        alert("search nutrients 444 not found");
+       
         document.getElementsByClassName("inputnutrient")[0].value = "";
+        showModal("Please enter the macronutrients in the dish to organize them.");
+        dataFood = food;
+        renderFood(curentpage,dataFood);
         return;
     }
 }
@@ -220,5 +231,12 @@ function home() {
 }
 
 
+function showModal(message) {
+    document.getElementById("modalMessage").innerText = message;
+    document.getElementById("modalBox").style.display = "flex";
+}
 
+function closeModal() {
+    document.getElementById("modalBox").style.display = "none";
+}
 renderFood(1);

@@ -56,3 +56,13 @@ displayinfor ();
 function logOut() {
     window.location.href = "../fages/Login.html";
 }
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+async function run() {
+    
+    await sleep(4000); // chờ 2 giây
+    
+}

@@ -1,97 +1,110 @@
-
-function close () {
-    window.location.href = "./Ingredient dashboarh.html";
+function showModal(message) {
+    document.getElementById("modalMessage").innerText = message;
+    document.getElementById("modalBox").style.display = "flex";
 }
 
-document.getElementsByClassName("close-btn")[0].addEventListener("click",close);
-document.getElementsByClassName("btn-cancel")[0].addEventListener("click",close);
+function closeModal() {
+    document.getElementById("modalBox").style.display = "none";
+    close();
+}
 
-function loadFile () {
+
+function close() {
+    window.location.href = "./Ingredient dashboarh.html";
+    
+}
+
+document.getElementsByClassName("close-btn")[0].addEventListener("click", close);
+document.getElementsByClassName("btn-cancel")[0].addEventListener("click", close);
+
+function loadFile() {
     let food = JSON.parse(localStorage.getItem("food"));
     return food ? food : [];
 }
 
-function loadFileuser () {
+function loadFileuser() {
     let user = JSON.parse(localStorage.getItem("userlogin"));
-    if(user.length==0) {
-        console.log('khong tim thay mnag cac nguoi dung dang nhap');
+    if (user.length == 0) {
+        console.log('Không tìm thấy người dùng đang đăng nhập');
         return;
     }
-    let constUser = user[user.length-1];
+    let constUser = user[user.length - 1];
     return constUser ? constUser : {};
 }
+
 function checkInforbasic() {
     let food = loadFile();
-    if(food.length==0) {
-        console.log('khong tim thay mang foood');
+    if (food.length == 0) {
+        console.log('Không tìm thấy dữ liệu food');
     }
+
     let userlogin = loadFileuser();
     console.log(userlogin);
 
     let listinput = document.getElementsByTagName("input");
-    let categoryinput = document.getElementsByClassName("unit-select")[0].value.trim().toLocaleLowerCase();
-    console.log(categoryinput);
-    let unit = document.getElementsByClassName("unit-select")[1].value.trim().toLocaleLowerCase();
-    console.log(unit);
-    let inputquantity ="";
-    for(i=0;i<6;i++) {
-        if(listinput[i].value == "") {
-            alert("du lieu quan trong khong duoc de trong");
+    let categoryinput = document.getElementsByClassName("unit-select")[0].value.trim().toLowerCase();
+    let unit = document.getElementsByClassName("unit-select")[1].value.trim().toLowerCase();
+    let inputquantity = "";
+
+    for (let i = 0; i < 6; i++) {
+        if (listinput[i].value === "") {
+            showModal("Các chất dinh dưỡng phải là số");
             return false;
         }
-        if(i==0) {
-            if(listinput[i].value.length <2) {
-                alert("ten mon an khong duoc de trong");
-                return false;
-            }
-        } 
-        if(i>0) {
+
+        if (i === 0 && listinput[i].value.length < 2) {
+            showModal("Tên món ăn phải có ít nhất 2 ký tự");
+            return false;
+        }
+
+        if (i > 0) {
             let value = listinput[i].value.trim();
-            if(!isNaN(value)  != true) {
-                alert("cac chat dinh duong phai la so");
+            if (isNaN(value)) {
+                showModal("Các chất dinh dưỡng phải là số");
                 return false;
             }
-            if(i==1) {
+
+            if (i === 1) {
                 inputquantity = `${listinput[1].value} ${unit}`;
                 document.getElementsByClassName("nutritional-value")[0].innerHTML = `Nutritional value per ${inputquantity}`;
             }
         }
     }
+
     let valueInput = [];
-    for(j=6;j<=42;j++) {
+    for (let j = 6; j <= 42; j++) {
         let value = listinput[j].value.trim();
-        if(!isNaN(value)  != true) {
-            alert("cac chat dinh duong phai la so");
+        if (isNaN(value) && value !== "") {
+            showModal("Các chất dinh dưỡng phải là số");
             return false;
-        } else if (value=="") {
+        } else if (value === "") {
             valueInput.push(null);
         } else {
             valueInput.push(value);
         }
-        
     }
-    console.log(valueInput);
+
     const newFood = {
         id: food.length > 0 ? food[food.length - 1].id + 1 : 0,
-        name : listinput[0].value,
-        category : categoryinput,
-        like : 1,
-        quantity : inputquantity,
-        source : userlogin.username,
-        macronutrients : {
-            carbohydrate : listinput[3].value,
-            energy :listinput[2].value,
-            fat:listinput[2].value,
-            protein:listinput[5].value,
+        name: listinput[0].value,
+        category: categoryinput,
+        like: 1,
+        quantity: inputquantity,
+        source: userlogin.username,
+        macronutrients: {
+            carbohydrate: listinput[3].value,
+            energy: listinput[2].value,
+            fat: listinput[2].value,
+            protein: listinput[5].value,
         },
         micronutrients: {
             cholesterol: listinput[0].value,
-            fiber:listinput[1].value,
+            fiber: listinput[1].value,
             sodium: listinput[2].value,
-            water:listinput[3].value,
+            water: listinput[3].value,
             vitaminA: listinput[4].value,
-            vitaminB6:listinput[5].value,
-            vitaminB12:listinput[6].value,
+            vitaminB6: listinput[5].value,
+            vitaminB12: listinput[6].value,
             vitaminC: listinput[7].value,
             vitaminD: listinput[8].value,
             vitaminE: listinput[9].value,
@@ -108,7 +121,7 @@ function checkInforbasic() {
             potassium: listinput[20].value,
             zinc: listinput[21].value,
             copper: listinput[22].value,
-            fluoride: listinput[23].valuel,
+            fluoride: listinput[23].value,
             manganese: listinput[24].value,
             selenium: listinput[25].value,
             thiamin: listinput[26].value,
@@ -123,36 +136,25 @@ function checkInforbasic() {
             fattyAcidsPolyunsaturated: listinput[35].value,
             chloride: listinput[36].value,
         },
-        ingredients : [],
-    }
+        ingredients: [],
+    };
+
     food.push(newFood);
-    
-    if(food[food.length-1] != newFood) {
-        alert("chua them duoc");
+    if (food[food.length - 1] !== newFood) {
+        showModal("Chưa thêm được món");
         return false;
     } else {
-        confirm("Are you sure you want to add this dish?");
-        localStorage.setItem("food",JSON.stringify(food));
-        alert("da the thanh cong mon an");
-        close ();                           
+        showModal("Đã thêm món ăn thành công");
+        localStorage.setItem("food", JSON.stringify(food));
+        
         return true;
     }
-    
-
 }
-    
 
-document.getElementsByClassName("btn-save")[0].addEventListener("click",save);
+document.getElementsByClassName("btn-save")[0].addEventListener("click", save);
 
-function save () {
-    let a = checkInforbasic();
-   
-    if(!a) {
-        return;
-    }
-
-    
-    
+function save() {
+    checkInforbasic();
 }
 
 function logOut() {

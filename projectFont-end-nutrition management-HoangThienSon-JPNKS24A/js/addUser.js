@@ -122,3 +122,12 @@ document.getElementsByClassName('submit')[0].addEventListener("click",addnewUser
 
 
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+async function run() {
+    
+    await sleep(4000); // chờ 2 giây
+    
+}

@@ -1,3 +1,5 @@
+
+
 function logOut() {
     window.location.href = "../fages/Login.html";
 }
@@ -15,12 +17,9 @@ function addnewFood () {
 document.getElementsByClassName("createfood")[0].addEventListener("click",addnewFood);
 
 
-let foodData = []; // Lưu trữ dữ liệu món ăn từ localStorage.
-let filteredFood = []; // Lưu trữ danh sách món ăn đã lọc (sau khi tìm kiếm hoặc sắp xếp).
-let currentPage = 1; // Theo dõi trang hiện tại trong phân trang.
-let itemPage = 4; // Số món ăn hiển thị trên mỗi trang.
-let sortDirection = "asc"; // Hướng sắp xếp danh sách (tăng dần hoặc giảm dần).
-let currentSortField = "name"; // Trường hiện tại đang được sắp xếp (ví dụ: "name", "energy").
+let foodData = []; 
+let currentPage = 1;
+let itemPage = 4;
 
 
 
@@ -47,10 +46,11 @@ function loadUser () {
 }
 
 // hai ham tren da dungs logic
+
 function renderFood (page, data=null) {
 
     let food = loadFile();
-
+    console.log(food);
     if(data == null) {
         foodData = food;
         console.log(`render food khong co data ${foodData}`);
@@ -116,8 +116,8 @@ function displaypaginationdhome (food) {
 }
 
 function nextPage (id) {
-    curentpage = id
-    renderFood(curentpage,foodData);
+    currentPage = id
+    renderFood(currentPage,foodData);
 
 }
 
@@ -126,31 +126,31 @@ function searchFood () {
     let food = loadFile();
     let findfood = [];
     if(value== "") {
-        renderFood(curentpage);
+        renderFood(currentPage);
         return;
     } else {
         findfood = food.filter(i=>i.name==value);
         if(findfood .length == 0) {
-            alert("objects food 444 not found");
-            foodData = food;
-            renderFood(curentpage);
+            document.getElementsByClassName("listfood-home")[0].innerHTML = `444 not foud`;
+            showModal("Cannot find the dish in the list.");
+            dataFood = food;
+            renderFood(currentPage);
             document.getElementById("searchInput").value="";
             return;
         } else {
             document.getElementById("searchInput").value="";
-            foodData = findfood;
-            renderFood(1,foodData);
+            dataFood = findfood;
+            renderFood(1,dataFood);
         }
     }
 }
-
 function searchByCategory () {
     
     
     let categoryInput = document.getElementById("searchCategory");
     console.log(categoryInput);
     if (!categoryInput) {
-        alert("Category input does not exist.");
+        document.getElementsByClassName("listfood-home")[0].innerHTML=`444 not found`;
         return;
     }
     let value = categoryInput.value.trim().toLowerCase();
@@ -158,15 +158,16 @@ function searchByCategory () {
     let findfood = [];
     
     if(value=="") {
-        renderFood(curentpage);
+        renderFood(currentPage);
         return;
     } else {
         findfood = food.filter(i=>i.category.trim().toLowerCase()==value);
         console.log(findfood);
         if(findfood .length == 0) {
-            alert("objects food 444 not found");
+            showModal("The menu item does not exist.");
+            
             foodData = food;
-            renderFood(curentpage);
+            renderFood(currentPage);
             document.getElementById("searchCategory").value = "";
             return;
         } else {
@@ -188,8 +189,11 @@ function sortBynutrient () {
         document.getElementsByClassName("inputnutrient")[0].value = "";
     } else {
         foodData=[];
-        alert("search nutrients 444 not found");
+        document.getElementsByClassName("listfood-home")[0].innerHTML=`444 not found`;
         document.getElementsByClassName("inputnutrient")[0].value = "";
+        showModal("Please enter the names of the macronutrients present in the dish.");
+        foodData = food;
+        renderFood(1,foodData);
         return;
     }
 }
@@ -213,6 +217,15 @@ function displayinforFood (id) {
     localStorage.setItem("constUserid",JSON.stringify(constUserid));
     console.log(constUserid);
     window.location.href = "../fages/foodinformation.html";
+}
+
+function showModal(message) {
+    document.getElementById("modalMessage").innerText = message;
+    document.getElementById("modalBox").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modalBox").style.display = "none";
 }
 
 

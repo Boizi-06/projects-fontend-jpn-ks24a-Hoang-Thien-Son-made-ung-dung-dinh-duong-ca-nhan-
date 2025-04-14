@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biểu đồ Tròn bằng Chart.js</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Biểu đồ Tròn bằng Chart.js</h2>
+    <canvas id="pieChart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Dữ liệu biểu đồ
+        const data = {
+            labels: ["fat - 38.3%", "energy - 48.9%", "glucozo - 12.8%"],
+            datasets: [{
+                data: [38.3, 48.9, 12.8],
+                backgroundColor: ["#e74c3c", "#f39c12", "#3498db"],
+                hoverOffset: 10 // Khi hover, phần đó nhô ra
+            }]
+        };
+
+        // Cấu hình biểu đồ
+        const config = {
+            type: "pie",
+            data: data,
+            options: {
+                responsive: true,
+                animation: {
+                    animateScale: true // Hiệu ứng mở rộng khi tải trang
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.label}: ${tooltipItem.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Vẽ biểu đồ
+        const ctx = document.getElementById("pieChart").getContext("2d");
+        new Chart(ctx, config);
+    </script>
+
+</body>
+</html>

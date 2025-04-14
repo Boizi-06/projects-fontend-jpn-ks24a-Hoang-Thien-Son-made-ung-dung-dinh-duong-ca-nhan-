@@ -15,10 +15,13 @@ body {
         iframe {
             width: 220px;
             height: 900px;
+            z-index: 999;
+            position: fixed;
         }
         .home {
             width: 1220px;
             height: 1600.47px;
+            margin-left: 220px;
            
         }
         .home .header {

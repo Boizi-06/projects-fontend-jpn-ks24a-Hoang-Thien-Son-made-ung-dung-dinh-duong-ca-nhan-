@@ -4,10 +4,13 @@
 iframe {
     width: 220px;
     height: 900px;
+    position: fixed;
+    z-index:999;
 }
 .home {
     width: 1220px;
     height: 1600.47px;
+    margin-left: 220px;
    
 }
 .home .header {
@@ -247,4 +250,8 @@ input {
     padding: 7px 10px;
     border: 1px solid black;
     border-radius: 3px;
+}
+
+#modalBox {
+    display: none;
 }
