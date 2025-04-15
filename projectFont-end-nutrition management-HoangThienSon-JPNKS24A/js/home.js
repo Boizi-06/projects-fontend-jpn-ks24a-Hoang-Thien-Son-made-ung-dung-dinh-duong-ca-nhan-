@@ -1,4 +1,4 @@
-let itemPage = 4;
+let itemPage = 8;
 let dataFood = [];
 let curentpage = 1;
 
@@ -186,7 +186,7 @@ function addMylikeFood(id) {
         foodItem.like += 1;
         user.mylikefood.push(foodItem);
 
-        element.src = "../assets/icon/favorite_filled.png";
+        element.src = "../assets/icon/heart-solid.svg";
         let timElement = element.closest('.like').querySelector('.tim');
         if (timElement) {
             timElement.innerText = foodItem.like;
@@ -198,7 +198,7 @@ function addMylikeFood(id) {
         userlogin[index] = user;
         localStorage.setItem("userlogin", JSON.stringify(userlogin));
     } else {
-        element.src = "../assets/icon/favorite_filled.png";
+        element.src = "../assets/icon/heart-solid.svg";
     }
 }
 function showModal(message) {

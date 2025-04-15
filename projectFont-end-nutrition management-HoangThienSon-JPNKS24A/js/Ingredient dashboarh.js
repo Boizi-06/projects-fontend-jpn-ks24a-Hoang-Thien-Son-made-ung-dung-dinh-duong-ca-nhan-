@@ -19,7 +19,7 @@ document.getElementsByClassName("createfood")[0].addEventListener("click",addnew
 
 let foodData = []; 
 let currentPage = 1;
-let itemPage = 4;
+let itemPage = 8;
 
 
 

@@ -245,7 +245,7 @@ let food = [
         chloride: null
       },
       ingredients : [
-        "Ackee (đóng hộp, đã để ráo nước333",
+        "Ackee (đóng hộp, đã để ráo nước)",
         "Cá muối (salted codfish)",
         "Hành tây",
         "Ớt chuông (màu đỏ hoặc xanh)",
@@ -309,6 +309,9 @@ let food = [
         fattyAcidsPolyunsaturated: 0.0,
         chloride: null
       },
+
+
+
       ingredients : [
         "Ackee (đóng hộp, đã để ráo nước)444",
         "Cá muối (salted codfish)",

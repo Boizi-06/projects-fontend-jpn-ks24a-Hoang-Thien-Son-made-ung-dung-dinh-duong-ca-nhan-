@@ -54,9 +54,7 @@ function mylikefood () {
  }
 // Myfood();
 
-document.getElementsByClassName("addrecipe")[0].addEventListener("click",function(){
-    window.location.href = "../fages/addnewrecipe.html"
-});
+
 function renderFood(page, data = null) {
     let food = loadFile();
     let userlogin = loadUser();
@@ -76,7 +74,7 @@ function renderFood(page, data = null) {
         str += `
         <div class="cardfood-home">
             <div class="communityrecipes-home">
-                <div class="button">
+                <div class="button" onclick="addevent (${pageData[i].id})">
                     <img src="../assets/icon/diversity_3.svg.png" alt="">
                     <span>Community Recipes</span>
                 </div>
@@ -239,4 +237,30 @@ function showModal(message) {
 function closeModal() {
     document.getElementById("modalBox").style.display = "none";
 }
+
+
+function addevent (id) {
+    
+        const cards = document.getElementsByClassName('communityrecipes-home');
+        for (let i = 0; i < cards.length; i++) {
+        cards[i].style.cursor = 'pointer';
+        cards[i].addEventListener('click', function() {
+            let idaddrepices = id;
+            localStorage.setItem('idaddrepices',idaddrepices);
+            window.location.href = "../fages/addnewrecipe.html"
+    
+        });
+}
+
+}
+   
+document.getElementsByClassName("addrecipe")[0].addEventListener("click",function(){
+    window.location.href = "../fages/addnewrecipe.html"
+});
+function recipe() {
+    window.location.href = "../fages/Recipesdashboard.html";
+}
+
+
+
 renderFood(1);

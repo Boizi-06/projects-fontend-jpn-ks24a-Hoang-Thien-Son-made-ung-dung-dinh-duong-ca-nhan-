@@ -18,11 +18,12 @@ iframe {
     flex-direction: column;
     width: 1220px;
     height: 166.9px;
+    border: 1px solid black;
 }
 .home .header .header-top {
     width: 1200px;
     height: 76px;
-    border: 1px solid black;
+    
     display: flex;
     align-items: center;
     padding-left: 20px;
@@ -30,7 +31,7 @@ iframe {
 .home .header .header-bot {
     width: 1220px;
     height: 90.9px;
-    border: 1px solid black;
+    border-top: 1px solid black;
     display: flex;
     align-items: center;
 }
@@ -255,3 +256,13 @@ input {
 #modalBox {
     display: none;
 }
+.switchPage{
+    margin: 0px 3px;
+    border-radius: 3px;
+    
+}
+.switchPage:hover {
+    background: #868686;
+    color: #fff;
+  }
+  

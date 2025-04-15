@@ -358,7 +358,7 @@
                                 <h2 id="macronutrients-heading">Macronutrients</h2>
                                 <p>Macronutrients distribution of the recipe</p>
                                 
-                                <figure class="pie-chart">
+                                <!-- <figure class="pie-chart">
                                     <div class="chart-container" role="img" aria-label="Pie chart showing macronutrient distribution: 95.8% carbohydrates, with small amounts of protein and fat"></div>
                                     <figcaption class="chart-legend">
                                         <div class="legend-item">
@@ -374,7 +374,8 @@
                                             <span>Protein</span>
                                         </div>
                                     </figcaption>
-                                </figure>
+                                </figure> -->
+                                <canvas id="pie-Chart"></canvas>
                             </section>
                             
                             <section class="micronutrients" aria-labelledby="micronutrients-heading">
@@ -489,7 +490,7 @@
                         
                         <div class="cooking-step">
                             <div class="step-number" aria-hidden="true">1</div>
-                            <input class="step-content" placeholder="Add new cooking method"></input>
+                            <input class="step-content" placeholder="Add new cooking method"id="cooking" ></input>
                             <button type="button" class="edit-button" aria-label="Edit cooking method">
                                 <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                             </button>
@@ -506,7 +507,8 @@
           <button onclick="closeModal()" style="padding:6px 16px; background:#3498db; color:white; border:none; border-radius:6px;">OK</button>
         </div>
       </div>
-  
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="../js/addnewrecipe.js"></script>
 </body>
 </html>
